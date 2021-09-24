@@ -1,40 +1,33 @@
+import 'package:riverpod_todo/model/database/database.dart';
+import 'package:riverpod_todo/model/database/task_table.dart';
 import 'package:riverpod_todo/model/entity/task.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-extension TaskExt on Task {
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'isChecked': isChecked ? 1 : 0,
-    };
-  }
-}
+
 
 class TaskRepository {
-  Database _database;
+  AppDatabase _db;
 
-  TaskRepository(this._database);
+  TaskRepository(this._db);
 
   Future<List<Task>> getAll() async {
-    List<Map<String, dynamic>> maps = await _database.query("tasks");
+    List<Map<String, dynamic>> maps = await _db.instance.query(_db.taskTable.name);
     return List.generate(maps.length, (i) {
-      return Task(maps[i]["id"], (maps[i]["isChecked"] == 1), maps[i]["name"]);
+      return _db.taskTable.toEntity(maps[i]);
     });
   }
 
   Future<void> insert(Task task) async {
-    _database.insert("tasks", task.toMap(),
+    _db.instance.insert(_db.taskTable.name, _db.taskTable.toMap(task),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<void> delete(Task task) async {
-    _database.delete("tasks", where: "id = ?", whereArgs: [task.id]);
+    _db.instance.delete(_db.taskTable.name, where: "${_db.taskTable.columnId} = ?", whereArgs: [task.id]);
     return true;
   }
 
   Future<void> update(Task task) async {
-    _database
-        .update("tasks", task.toMap(), where: "id = ?", whereArgs: [task.id]);
+    _db.instance.update(_db.taskTable.name, _db.taskTable.toMap(task), where: "${_db.taskTable.columnId} = ?", whereArgs: [task.id]);
   }
 }

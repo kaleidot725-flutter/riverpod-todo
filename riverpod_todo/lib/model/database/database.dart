@@ -1,18 +1,23 @@
+import 'package:riverpod_todo/model/database/task_table.dart';
 import 'package:sqflite/sqflite.dart';
+import 'table.dart';
 
 class AppDatabase {
-  static Database _instance;
-  static Database get instance => _instance;
+  Database _instance;
+  Database get instance => _instance;
+  
+  TaskTable _taskTable;
+  TaskTable get taskTable => _taskTable;
 
-  static Future<void> open() async {
+  Future<void> open() async {
     _instance = await openDatabase('app_database', version: 1, onCreate: (Database db, int version) async {
       await db.execute(
-        "CREATE TABLE tasks(id TEXT PRIMARY KEY, name TEXT, checked INTEGER)",
+        taskTable.getCreateCommand(),
       );
     });
   }
 
-  static void close() {
+  void close() {
     _instance.close();
   }
 }
