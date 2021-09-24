@@ -24,7 +24,7 @@ class TaskTable implements Table<Task> {
   }
 
   @override
-  Task toEntity(Map<String, dynamic> map) {
+  Task? toEntity(Map<String, dynamic> map) {
     return Task(map[columnId], (map[columnIsChecked] == 1), map[columnName]);
   }
 }

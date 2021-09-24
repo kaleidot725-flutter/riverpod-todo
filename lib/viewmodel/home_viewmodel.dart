@@ -8,7 +8,7 @@ class HomeViewModel extends ChangeNotifier {
 
   final TaskRepository _repository;
 
-  List<Task> _tasks;
+  List<Task> _tasks = List.empty();
   List<Task> get tasks => _tasks;
 
   Future<void> fetchTasks() async {
