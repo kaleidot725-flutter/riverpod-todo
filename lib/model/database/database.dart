@@ -12,6 +12,10 @@ class AppDatabase {
   TaskTable get taskTable => _taskTable;
 
   Future<void> open() async {
+    if (_instance != null) {
+      close();
+    }
+
     _instance = await openDatabase('app_database', version: 1,
         onCreate: (Database db, int version) async {
       await db.execute(

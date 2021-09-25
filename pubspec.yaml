@@ -31,7 +31,7 @@ dependencies:
   hooks_riverpod: ^0.14.0+4
   state_notifier: ^0.7.1
   sqflite: ^2.0.0+4
-  flutter_hooks: ^0.18.0
+  flutter_hooks: ^0.17.0
 
 dev_dependencies:
   flutter_test:

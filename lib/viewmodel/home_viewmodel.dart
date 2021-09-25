@@ -12,6 +12,11 @@ class HomeViewModel extends ChangeNotifier {
   List<Task> get tasks => _tasks;
 
   Future<void> fetchTasks() async {
+    _repository.insert(Task("a", true, "TEST"));
+    _repository.insert(Task("b", true, "TEST"));
+    _repository.insert(Task("c", true, "TEST"));
+    _repository.insert(Task("d", true, "TEST"));
+
     return _repository.getAll().then((value) {
       _tasks = value;
     }).catchError((dynamic error) {
