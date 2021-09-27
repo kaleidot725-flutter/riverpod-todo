@@ -14,6 +14,7 @@ class MyApp extends HookWidget {
   Widget build(BuildContext context) {
     final appDatabase = useProvider(appDatabaseProvider);
     final snapshot = useFuture(useMemoized(() => appDatabase.open()));
+
     return snapshot.connectionState == ConnectionState.waiting
         ? InitializePage()
         : HomePage();
