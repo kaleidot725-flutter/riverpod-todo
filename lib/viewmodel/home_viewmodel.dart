@@ -32,6 +32,7 @@ class HomeViewModel extends ChangeNotifier {
     var newTask = Task(Uuid().v4().toString(), false, taskName);
     _repository.insert(newTask).then((value) {
       _tasks.add(newTask);
+      _taskName = "";
     }).catchError((dynamic error) {
       /** Error Handling */
     }).whenComplete(() => notifyListeners());

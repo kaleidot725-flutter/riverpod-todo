@@ -31,10 +31,7 @@ class TaskField extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {
-                _addTask();
-                controller.clear();
-              },
+              onPressed: () => _addTask(),
               icon: Icon(Icons.add),
             ),
           ],
