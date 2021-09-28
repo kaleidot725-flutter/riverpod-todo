@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_todo/model/entity/task.dart';
+import 'package:riverpod_todo/view/components/task_card.dart';
+import 'package:riverpod_todo/view/components/task_field.dart';
 
 class TaskList extends StatelessWidget {
   TaskList(this._tasks);
@@ -8,27 +10,26 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _tasks.length,
-      itemBuilder: (context, index) {
-        return Card(
-            child: Padding(
-                padding: EdgeInsets.all(8),
-                child: Stack(
-                  children: [
-                    Container(
-                        height: 40,
-                        alignment: Alignment.centerLeft,
-                        child: Text(_tasks[index].name)),
-                    Container(
-                        height: 40,
-                        alignment: Alignment.centerRight,
-                        child: Checkbox(
-                            value: _tasks[index].isChecked,
-                            onChanged: (isChecked) {}))
-                  ],
-                )));
-      },
-    );
+    return Stack(children: [
+      Container(
+        constraints: BoxConstraints.expand(),
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 50),
+          child: ListView.builder(
+            itemCount: _tasks.length,
+            itemBuilder: (context, index) {
+              return TaskCard(_tasks[index]);
+            },
+          ),
+        ),
+      ),
+      Container(
+        constraints: BoxConstraints.expand(),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [TaskField()],
+        ),
+      )
+    ]);
   }
 }
