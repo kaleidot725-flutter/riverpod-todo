@@ -17,10 +17,18 @@ class HomePage extends HookWidget {
       appBar: AppBar(title: Text("TODO")),
       body: Center(
         child: HookBuilder(builder: (context) {
-          final snapshot =
-              useFuture(useMemoized(() => homeViewModel.fetchTasks()));
+          final snapshot = useFuture(
+            useMemoized(() => homeViewModel.fetchTasks()),
+          );
           var waiting = snapshot.connectionState == ConnectionState.waiting;
-          return waiting ? Loading() : TaskList(homeViewModel.tasks);
+          return waiting
+              ? Loading()
+              : TaskList(
+                  homeViewModel.tasks,
+                  () => homeViewModel.addTask(),
+                  homeViewModel.taskName,
+                  (String input) => homeViewModel.inputTaskName(input),
+                );
         }),
       ),
     );

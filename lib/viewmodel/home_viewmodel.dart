@@ -12,6 +12,9 @@ class HomeViewModel extends ChangeNotifier {
   List<Task> _tasks = List.empty();
   List<Task> get tasks => _tasks;
 
+  String _taskName = "";
+  String get taskName => _taskName;
+
   Future<void> fetchTasks() async {
     return _repository.getAll().then((value) {
       _tasks = value;
@@ -20,8 +23,13 @@ class HomeViewModel extends ChangeNotifier {
     }).whenComplete(() => notifyListeners());
   }
 
-  Future<void> addTask(String name) async {
-    var newTask = Task(Uuid().v4().toString(), false, name);
+  void inputTaskName(String name) {
+    _taskName = name;
+    notifyListeners();
+  }
+
+  Future<void> addTask() async {
+    var newTask = Task(Uuid().v4().toString(), false, taskName);
     _repository.insert(newTask).then((value) {
       _tasks.add(newTask);
     }).catchError((dynamic error) {
