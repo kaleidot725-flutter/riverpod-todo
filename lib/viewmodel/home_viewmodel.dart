@@ -23,11 +23,6 @@ class HomeViewModel extends ChangeNotifier {
     }).whenComplete(() => notifyListeners());
   }
 
-  void inputTaskName(String name) {
-    _taskName = name;
-    notifyListeners();
-  }
-
   Future<void> addTask() async {
     var newTask = Task(Uuid().v4().toString(), false, taskName);
     _repository.insert(newTask).then((value) {
@@ -36,5 +31,23 @@ class HomeViewModel extends ChangeNotifier {
     }).catchError((dynamic error) {
       /** Error Handling */
     }).whenComplete(() => notifyListeners());
+  }
+
+  Future<void> checkTask(Task task) async {
+    var newTask = Task(task.id, !task.isChecked, task.name);
+    _repository
+        .update(newTask)
+        .then((value) {
+          var index = _tasks.indexOf(task);
+          _tasks.remove(task);
+          _tasks.insert(index, newTask);
+        })
+        .catchError((dynamic error) {})
+        .whenComplete(() => notifyListeners());
+  }
+
+  void inputTaskName(String name) {
+    _taskName = name;
+    notifyListeners();
   }
 }

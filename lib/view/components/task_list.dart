@@ -4,13 +4,20 @@ import 'package:riverpod_todo/view/components/task_card.dart';
 import 'package:riverpod_todo/view/components/task_field.dart';
 
 class TaskList extends StatelessWidget {
-  TaskList(this._tasks, this._addTask, this._taskName, this._inputTaskName);
+  TaskList(
+    this._tasks,
+    this._addTask,
+    this._taskName,
+    this._inputTaskName,
+    this._checkTask,
+  );
 
   final List<Task> _tasks;
   final AddTask _addTask;
 
   final String _taskName;
   final InputTaskName _inputTaskName;
+  final CheckTask _checkTask;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class TaskList extends StatelessWidget {
           child: ListView.builder(
             itemCount: _tasks.length,
             itemBuilder: (context, index) {
-              return TaskCard(_tasks[index]);
+              return TaskCard(_tasks[index], _checkTask);
             },
           ),
         ),
