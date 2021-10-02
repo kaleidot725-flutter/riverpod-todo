@@ -24,6 +24,10 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> addTask() async {
+    if (_taskName.isEmpty) {
+      return Future.error("invalid task name.");
+    }
+
     var newTask = Task(Uuid().v4().toString(), false, taskName);
     _repository.insert(newTask).then((value) {
       _tasks.add(newTask);
