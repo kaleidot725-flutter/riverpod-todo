@@ -9,6 +9,7 @@ class TaskList extends StatelessWidget {
     this._addTask,
     this._inputTaskName,
     this._checkTask,
+    this._deleteTask
   );
 
   final List<Task> _tasks;
@@ -16,6 +17,7 @@ class TaskList extends StatelessWidget {
 
   final InputTaskName _inputTaskName;
   final CheckTask _checkTask;
+  final DeleteTask _deleteTask;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class TaskList extends StatelessWidget {
           child: ListView.builder(
             itemCount: _tasks.length,
             itemBuilder: (context, index) {
-              return TaskCard(_tasks[index], _checkTask);
+              return TaskCard(_tasks[index], _checkTask, _deleteTask);
             },
           ),
         ),

@@ -29,6 +29,7 @@ class HomePage extends HookWidget {
                   () => homeViewModel.addTask(),
                   (String input) => homeViewModel.inputTaskName(input),
                   (Task task) => homeViewModel.checkTask(task),
+                  (Task task) => homeViewModel.deleteTask(task)
                 );
         }),
       ),

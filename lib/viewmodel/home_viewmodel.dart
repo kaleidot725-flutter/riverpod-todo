@@ -45,6 +45,17 @@ class HomeViewModel extends ChangeNotifier {
         .whenComplete(() => notifyListeners());
   }
 
+  Future<void> deleteTask(Task task) async {
+    _repository
+        .delete(task)
+        .then((value) {
+          var index = _tasks.indexOf(task);
+          _tasks.removeAt(index);
+        })
+        .catchError((dynamic error) {})
+        .whenComplete(() => notifyListeners());
+  }
+
   void inputTaskName(String name) {
     _taskName = name;
     notifyListeners();
