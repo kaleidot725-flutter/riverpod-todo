@@ -24,6 +24,10 @@ class TaskField extends StatelessWidget {
           children: [
             Flexible(
               child: TextField(
+                decoration: InputDecoration(
+                  labelText: "Name",
+                  hintText: "Input Task Name."
+                ),
                 controller: _controller,
                 onChanged: (String s) => _inputTaskName(s),
               ),
