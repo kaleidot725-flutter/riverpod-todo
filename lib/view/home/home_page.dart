@@ -27,7 +27,6 @@ class HomePage extends HookWidget {
               : TaskList(
                   homeViewModel.tasks,
                   () => homeViewModel.addTask(),
-                  homeViewModel.taskName,
                   (String input) => homeViewModel.inputTaskName(input),
                   (Task task) => homeViewModel.checkTask(task),
                 );

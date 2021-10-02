@@ -5,18 +5,16 @@ import 'package:flutter/painting.dart';
 typedef AddTask = void Function();
 typedef InputTaskName = void Function(String);
 
+final TextEditingController _controller = new TextEditingController();
+
 class TaskField extends StatelessWidget {
-  TaskField(this._addTask, this._taskName, this._inputTaskName);
+  TaskField(this._addTask, this._inputTaskName);
 
   final AddTask _addTask;
-
-  final String _taskName;
   final InputTaskName _inputTaskName;
 
   @override
   Widget build(BuildContext context) {
-    var controller = TextEditingController(text: _taskName);
-
     return Container(
       color: Colors.blue[100],
       child: Padding(
@@ -26,12 +24,15 @@ class TaskField extends StatelessWidget {
           children: [
             Flexible(
               child: TextField(
-                controller: controller,
+                controller: _controller,
                 onChanged: (String s) => _inputTaskName(s),
               ),
             ),
             IconButton(
-              onPressed: () => _addTask(),
+              onPressed: () {
+                _addTask();
+                _controller.clear();
+              },
               icon: Icon(Icons.add),
             ),
           ],

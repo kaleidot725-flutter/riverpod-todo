@@ -7,7 +7,6 @@ class TaskList extends StatelessWidget {
   TaskList(
     this._tasks,
     this._addTask,
-    this._taskName,
     this._inputTaskName,
     this._checkTask,
   );
@@ -15,7 +14,6 @@ class TaskList extends StatelessWidget {
   final List<Task> _tasks;
   final AddTask _addTask;
 
-  final String _taskName;
   final InputTaskName _inputTaskName;
   final CheckTask _checkTask;
 
@@ -38,7 +36,7 @@ class TaskList extends StatelessWidget {
         constraints: BoxConstraints.expand(),
         child: Stack(
           alignment: Alignment.bottomCenter,
-          children: [TaskField(_addTask, _taskName, _inputTaskName)],
+          children: [TaskField(_addTask, _inputTaskName)],
         ),
       )
     ]);

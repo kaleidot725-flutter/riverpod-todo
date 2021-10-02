@@ -10,7 +10,7 @@ void main() {
 }
 
 class MyApp extends HookWidget {
-  @override
+  @override 
   Widget build(BuildContext context) {
     final appDatabase = useProvider(appDatabaseProvider);
     final snapshot = useFuture(useMemoized(() => appDatabase.open()));
